@@ -15,6 +15,15 @@ public:
     const char* m_name;
 };
 
+// 替换省略号所代表的字符串
+#define LOG(...) {\
+    fprintf(stderr, "%s: LINE: %d\t", __FILE__, __LINE__);\
+    fprintf(stderr, __VA_ARGS__);\
+    fprintf(stderr, "\n");\
+}
+
+void foo(...) {}
+
 int main() {
     // 编译器目标系统是否包含完整的标准C库
     cout << "standard clib: " <<  __STDC_HOSTED__ << endl;
@@ -23,8 +32,17 @@ int main() {
     cout << "ISO/IEC" << __STDC_ISO_10646__ << endl;
 
     cout << hello() << " " << world() << endl;
+
     TestStruct s;
     cout << s.m_name << endl;
+
+    LOG("ERROR");
+
+    cout << __cplusplus << endl;
+#if __cplusplus < 201103L
+#error "should use C++11"
+#endif
+
 
     return 0;
 }
