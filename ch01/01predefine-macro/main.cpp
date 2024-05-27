@@ -29,7 +29,12 @@ int main() {
     cout << "standard clib: " <<  __STDC_HOSTED__ << endl;
     // 编译器的实现是否和标准C一致
     cout << "standard c: " << __STDC__ << endl;
+
+#ifdef __APPLE__
+    cout << "cpp threads: " << __STDCPP_THREADS__ << endl;
+#else
     cout << "ISO/IEC" << __STDC_ISO_10646__ << endl;
+#endif
 
     cout << hello() << " " << world() << endl;
 
